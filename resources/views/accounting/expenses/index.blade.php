@@ -11,7 +11,31 @@
 	<a href="?range_start=2015-01-01&&range_end=2015-12-31">2015</a> | 
 </p>
 	
+	<hr />
+	
+	@include('accounting\parts\categorized_expenses')
+	
+	<style>
+		.cat {
+			float:left; border:solid 1px gray; padding:15px;
+		}
+		.money {
+			color:green;
+		}
+	</style>
+	
+	<div class="cat"><strong>Total</strong>: <span class="money">${!! $expenses->sum('amount') !!}</span></div>
+	
+	@foreach($items AS $index => $value)
+	
+	<div class="cat"><strong>{!! $index!!}</strong>: <span class="money">$ {!! $value->sum('amount') !!}</span></div>
+	
+	@endforeach
+	
+	<hr />
+	
 	<table>
+		<tbody>
 		<tr>
 			<th>Check #</th>
 			<th>$</th>
@@ -21,38 +45,28 @@
 			<th>Account</th>
 			<th>date</th>
 		</tr>
-		
-		<tr>
-			<th></th>
-			<th>$ {!! $expenses->sum('amount') !!}</th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-		</tr>
 	@foreach($expenses AS $expense)
 	<tr>
 		
 		{!! Form::open() !!}
-			{!! Form::text('reference', $expense->reference) !!}
-			{!! Form::text('amount', $expense->amount) !!}
-			{!! Form::text('memo', $expense->memo) !!}
-			{!! Form::text('payee', $expense->payee) !!}
-			{!! Form::text('category', $expense->category) !!}
-			{!! Form::select('account', $accounts ,$expense->account->id) !!}
-			{!! Form::text('created_at', $expense->reference) !!}
+			<th>{!! Form::text('reference', $expense->reference) !!}</th>
+			<th>{!! Form::text('amount', $expense->amount) !!}</th>
+			<th>{!! Form::text('payee', $expense->payee) !!}</th>
+			<th>{!! Form::select('category', $categories ,$expense->category_id) !!}</th>
+			<th>{!! Form::select('account', $accounts ,$expense->account->id) !!}</th>
+			<th>{!! Form::text('created_at', $expense->created_at) !!}</th>
+			<th>{!! Form::text('memo', $expense->memo) !!}</th>
 			
+			<th>
 			<button class="btn btn-default btn-xs" type="submit" value="">
 				<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
 			</button>
-			
+			</th>
 		{!! Form::close() !!}
-		
-		<hr>
 		
 	</tr>
 	@endforeach
+	<tbody>
 	</table>
 	
 @stop

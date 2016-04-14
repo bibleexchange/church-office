@@ -13,4 +13,19 @@ class Expense extends Model {
 	    return $this->belongsTo('\App\Account');
 	}
 	
+	public function category()
+	{
+	    return $this->belongsTo('\App\Category');
+	}
+	
+	public function isCategory($catId)
+	{
+	    
+		if($this->category_id === $catId){
+			return true;
+		}
+		
+		return false;
+	}
+	
 }

@@ -8,4 +8,9 @@ class Category extends Model {
 	
 	protected $fillable = [ 'name'];
 
+	public function expenses()
+    {
+        return $this->hasMany('\App\Expense');
+    }
+	
 }

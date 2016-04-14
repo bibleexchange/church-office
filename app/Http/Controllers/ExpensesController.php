@@ -31,8 +31,20 @@ class ExpensesController extends OfficeController {
     	
 		$expenses = Expense::orderBy('created_at','DESC')->whereBetween('created_at',$range)->get();
     	$accounts = \App\Account::lists('title','id');
+		$categories = \App\Category::lists('name','id');
 
-        return view('accounting.expenses.index',compact('expenses','accounts'));
+		$items = [];
+		
+		foreach($categories AS $key => $value){
+
+			$items[str_replace(' ','_',$value)] = $expenses->filter(function($e) use( &$key)
+			{
+				return $e->isCategory($key);
+			});
+			
+		}
+
+        return view('accounting.expenses.index',compact('expenses','accounts','categories','items'));
     }
 
 	/**
