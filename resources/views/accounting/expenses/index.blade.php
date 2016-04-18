@@ -2,49 +2,34 @@
 
 @section('body')
 
-<h1>Expenses Register</h1>
-
-<p>
+<div>
 	<a href="?range_start=2010-01-01&&range_end=2020-12-31">all time</a> | 
 	<a href="?range_start=2013-01-01&&range_end=2013-12-31">2013</a> | 
 	<a href="?range_start=2014-01-01&&range_end=2014-12-31">2014</a> | 
 	<a href="?range_start=2015-01-01&&range_end=2015-12-31">2015</a> | 
-</p>
+</div>
+
+<h1>Expenses Register <strong>$ {!! number_format($expenses->sum('amount')) !!}</strong> <sup>({!!$range[0]!!} to {!!$range[1]!!})</sup></h1>
 	
-	<hr />
-	
-	@include('accounting\parts\categorized_expenses')
-	
-	<style>
-		.cat {
-			float:left; border:solid 1px gray; padding:15px;
-		}
-		.money {
-			color:green;
-		}
-	</style>
-	
-	<div class="cat"><strong>Total</strong>: <span class="money">${!! $expenses->sum('amount') !!}</span></div>
-	
-	@foreach($items AS $index => $value)
-	
-	<div class="cat"><strong>{!! $index!!}</strong>: <span class="money">$ {!! $value->sum('amount') !!}</span></div>
-	
-	@endforeach
-	
-	<hr />
-	
-	<table>
-		<tbody>
-		<tr>
-			<th>Check #</th>
-			<th>$</th>
-			<th>Memo</th>
-			<th>Payee</th>
-			<th>Category</th>
-			<th>Account</th>
-			<th>date</th>
-		</tr>
+<section class="col-lg-6 connectedSortable">     
+	@include('accounting\parts\categorized_expenses', [$items, $colors])
+</section><!-- /.Left col -->
+
+<section class="col-lg-6 connectedSortable">  
+	@include('accounting\parts\expense_form')
+</section>
+
+<table>
+	<tbody>
+	<tr>
+		<th>Check #</th>
+		<th>$</th>
+		<th>Memo</th>
+		<th>Payee</th>
+		<th>Category</th>
+		<th>Account</th>
+		<th>date</th>
+	</tr>
 	@foreach($expenses AS $expense)
 	<tr>
 		
@@ -67,6 +52,6 @@
 	</tr>
 	@endforeach
 	<tbody>
-	</table>
-	
+</table>
+
 @stop
