@@ -99,7 +99,20 @@ class ExpensesController extends OfficeController {
 	 */
 	public function update($id)
 	{
-		dd(Input::all());
+		$input = Input::all();
+
+		$expense = Expense::find($input['expense_id']);
+		
+		$ignore_these = ["_token","expense_id"];
+		
+		foreach($input AS $key=>$value){
+			if(!in_array($key, $ignore_these)){
+				$expense[$key] = $value;
+			}
+		}
+		$expense->save();
+		
+		return Redirect::back();
 	}
 
 	/**

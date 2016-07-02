@@ -1,7 +1,7 @@
 <table id="deposit_slip">
 	<tr>
 		<td class='style5' colspan='4' rowspan='2'>Deliverance Center</td>
-		<td class='style2' colspan='14'>1008 Congress Street - Portland, Maine 04102 - (207) 774-8192</td>
+		<td class='style2' colspan='14'>930 Old Post Rd. Arundel, Maine 04046 - (207) 774-8192</td>
 	</tr>
 	<tr>
 		<td class='style2' colspan='14'>CONTACT: Stephen Reynolds, Jr.,  EMAIL: info@deliverance.me</td>

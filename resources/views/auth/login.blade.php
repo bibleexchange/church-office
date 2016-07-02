@@ -2,7 +2,9 @@
 
 @section('body')
 
-<center><h1><img src="/img/be-icon-144x144px.png" /> Be Apps</h1></center>
+<center><h1> Deliverance Center House of Prayer</h1></center>
+<hr />
+<center><img src="/img/dc-dove.png" id="login-logo"/></center>
 
  <div class="form-box" id="login-box">
 			
@@ -28,20 +30,24 @@
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" class="form-control" placeholder="Password"/>
-                    </div>          
+                    </div>   
+<!--					
                     <div class="form-group">
                         <input type="checkbox" name="remember_me"/> Remember me
                     </div>
+-->
                 </div>
-                <div class="footer">                                                               
+                <div class="footer">  
+			
                     <button type="submit" class="btn bg-olive btn-block">Sign me in</button>  
-                    
+<!--	                    
                     <p><a href="#">I forgot my password</a></p>
                     
                     <a href="register.html" class="text-center">Register a new membership</a>
+-->
                 </div>
             </form>
-
+<!--
             <div class="margin text-center">
                 <span>Sign in using social networks</span>
                 <br/>
@@ -50,6 +56,7 @@
                 <button class="btn bg-red btn-circle"><i class="fa fa-google-plus"></i></button>
 
             </div>
+-->
         </div>
 
 @stop

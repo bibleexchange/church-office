@@ -1,66 +1,42 @@
 @extends('app')
 
+@section('content-header')
+
+ <h1>
+	Dashboard
+	<small>Main</small>
+</h1>
+<ol class="breadcrumb">
+   <li><i class="fa fa-dashboard active"></i> Dashboard</li>
+</ol>
+
+@stop
+
 @section('body')
 
-<center>
-
-<h1>Welcome to Bible exchange Apps</h1>
-
-<img src="/img/be-icon-144x144px.png" /></center>
-
+<center><h1>Deliverance Center House of Prayer</h1></center>
 <hr>
+                 <div class="row">
+					 @foreach($cards AS $card)
+					 <div class="col-md-8 col-md-offset-2">
+						@include('card',[$card])
+					 </div>
+					@endforeach
+				</div>
+				
+				<!-- Main row -->
+				<div class="row">
+					<!-- Left col -->
+					<section class="col-md-8 col-md-offset-2 connectedSortable"> 
+					{{--@include('widgets/map')--}}
+					{{--@include('widgets/chat')--}}
+					{{--@include('widgets/to-do-list')--}}
 
- <div class="row">
- 
-                         <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-green">
-                                <div class="inner">
-                                    <h3>
-                                        53<sup style="font-size: 20px">%</sup>
-                                    </h3>
-                                    <p>
-                                        Accounting
-                                    </p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-cash"></i>
-                                </div>
-                                <a href="/accounting" class="small-box-footer">
-                                    More info <i class="fa fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div><!-- ./col -->
- 
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-aqua">
-                                <div class="inner">
-                                    <h3>
-                                        150
-                                    </h3>
-                                    <p>
-                                        People
-                                    </p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-person-stalker"></i>
-                                </div>
-                                <a href="/people" class="small-box-footer">
-                                    More info <i class="fa fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div><!-- ./col -->
-
-                        
-                    </div><!-- /.row -->
-
-                    <!-- top row -->
-                    <div class="row">
-                        <div class="col-xs-12 connectedSortable">
-                            
-                        </div><!-- /.col -->
-                    </div>
-                    <!-- /.row -->
+					 {{--@include('widgets/loading-example')--}}
+					 {{--@include('widgets/charts-example')   --}}
+					 @include('widgets/calendar')
+					 {{--@include('widgets/email')--}}
+					</section>
+				</div><!-- /.row (main row) -->
 
 @stop

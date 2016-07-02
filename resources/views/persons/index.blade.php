@@ -1,5 +1,18 @@
 @extends('app')
 
+@section('content-header')
+
+ <h1>
+	People
+	<small>Main</small>
+</h1>
+<ol class="breadcrumb">
+   <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+   <li class="active">People</li>
+</ol>
+
+@stop
+
 @section('body')
 
 <h1>All the Contacts ({{ $Resource->count() }})

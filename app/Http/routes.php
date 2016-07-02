@@ -16,7 +16,6 @@ Route::model('user', '\App\User');
 
 Route::get('/', ['uses'=>'OfficeController@getIndex','as'=>'home']);
 Route::get('/accounting', ['uses'=>'AccountingController@getIndex','as'=>'accounting']);
-Route::get('/calendar', ['uses'=>'CalendarsController@index','as'=>'calendar']);
 
 Route::get('/people', 'PersonsController@index');
 Route::get('/people/{id}', 'PersonsController@show');
@@ -33,11 +32,16 @@ Route::post('/accounting/gifts/{giftId}', ['uses'=>'GiftsController@update','as'
 Route::post('/accounting/gifts', 'GiftsController@store');
 
 Route::resource('/office/address', 'AddressController');
-
 Route::resource('/accounting/deposits', 'DepositsController');
 Route::resource('/accounting/offerings', 'OfferingsController');
 
+Route::resource('/accounting/transactions', 'TransactionsController');
+Route::get('/accounting/{account}', 'TransactionsController@showAccount');
+Route::get('/accounting/{account}/reports', 'TransactionsController@getReportsList');
+Route::get('/accounting/{account}/reports/daily-balances', 'TransactionsController@getDailyBalances');
+
 Route::resource('/accounting/expenses', 'ExpensesController');
+Route::post('/accounting/expenses/{expenseid}', 'ExpensesController@update');
 
 Route::get('/office/mailing', 'AddressController@mailing');
 Route::get('/office/missions', 'ContactsController@missions');

@@ -9,7 +9,6 @@ class Deposit extends \Eloquent {
 	
 	protected $fillable = ['deposited','account_id','memo'];
 
-
 public static $rules = array(
     'deposited'=> array('required', 'regex:/\b\d{4}[-.]?\d{2}[-.]?\d{2}\b/'),
     'account_id'=>'integer|exists:accounts,id',

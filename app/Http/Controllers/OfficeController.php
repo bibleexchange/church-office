@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Contact;
+use App\Card;
 use Auth, Input, Flash;
 
 class OfficeController extends Controller {
@@ -37,11 +38,22 @@ public function __construct() {
 	public function getDashboard() {
 		
 		$user = Auth::user();
+		$people = new \stdClass();
+		$people->count = Contact::all()->count();
+		
+		$lastDeposit = $this->deposit->orderBy('deposited','DESC')->first();
+
+		$accounting = new Card('Accounting','$ '.$lastDeposit->totalAmount(),'','/accounting','ion ion-bag',[],2); 
+		$peoples = new Card('People',$people->count,'','/people','ion ion-person-add',[],3); 
+		
+		$cards = [$accounting,$peoples];
 		
 		return view('dashboard',[
 			'pageTitle'=>'Dashboard',
 			'inout_title' => 'Log Out',
 			'inout_url' => 'logout',
+			'people'=>$people,
+			'cards'=>$cards
 		]);
 	}
 

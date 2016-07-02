@@ -13,4 +13,8 @@ class Category extends Model {
         return $this->hasMany('\App\Expense');
     }
 	
+	public function transactions()
+    {
+        return $this->hasMany('\App\Transaction','category_id');
+    }
 }

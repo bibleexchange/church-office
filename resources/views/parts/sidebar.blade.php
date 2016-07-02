@@ -2,8 +2,20 @@
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
-                        <div class="pull-left image">
-                            <img src="/img/be-icon-57x57px.png" class="img-circle" alt="User Image" />
+                        <div class="pull-left" style="border-radius:50%;  width:45px; height:45px;">
+						
+						<?php 
+							$avatar = new \stdClass();
+							$avatar->width = "50";
+							$avatar->height = "50";
+							$avatar->bgColor = "#ffffff";
+							$avatar->letter = "S";
+						?>
+						<style>
+						  #avatar {border:1px solid #c3c3c3; background-color:white; border-radius:50%;}
+						</style>
+								@include('parts/svg',[$avatar])
+
                         </div>
                         <div class="pull-left info">
                             <p>{{$currentUser->name}}</p>
@@ -38,18 +50,10 @@
                             <ul class="treeview-menu">
                                 <li><a href="/accounting"><i class="fa fa-angle-double-right"></i> Main</a></li>
                                 <li><a href="/accounting/deposits"><i class="fa fa-angle-double-right"></i> Deposits</a></li>
-                                <li><a href="/accounting/offerings"><i class="fa fa-angle-double-right"></i> Offerings</a></li>
-                                <li><a href="/accounting/gifts"><i class="fa fa-angle-double-right"></i> Gifts</a></li>
                                 <li><a href="/accounting/expenses"><i class="fa fa-angle-double-right"></i> Expenses</a></li>
                             </ul>
                         </li>
-					   
-					    <li class="{ Help::set_active(['calendar*']) }}">
-                            <a href="/calendar">
-                                <i class="fa fa-calendar"></i> <span>Calendar</span>
-                            </a>
-                        </li>
-					   
+					    
                         <li class="{ Help::set_active(['people*']) }} treeview">
                             <a href="#">
                                 <i class="fa fa-bar-chart-o"></i>
@@ -60,8 +64,6 @@
                                 <li><a href="/people"><i class="fa fa-angle-double-right"></i> All</a></li>
                             </ul>
                         </li>
-
-
 
 						<!--
                         <li>

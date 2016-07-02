@@ -450,9 +450,12 @@ html {
   z-index: 999999;
   background-image: url(http://basehold.it/i/24); }
 
-.edit-gift input {
-  height: 100%;
-  margin: 0; }
+#login-logo {
+  width: 100%;
+  max-width: 129px; }
+
+/*# sourceMappingURL=app.css.map */
+ margin: 0; }
 
 .input-group-sm {
   padding: 0;
