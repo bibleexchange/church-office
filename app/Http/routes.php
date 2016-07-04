@@ -36,9 +36,11 @@ Route::resource('/accounting/deposits', 'DepositsController');
 Route::resource('/accounting/offerings', 'OfferingsController');
 
 Route::resource('/accounting/transactions', 'TransactionsController');
+Route::post('/accounting/transactions/{transaction}/details', 'TransactionsController@updateDetails');
+
+Route::get('/accounting/reports', 'ReportsController@index');
+Route::get('/accounting/reports/daily-balances/{account}', 'ReportsController@getDailyBalances');
 Route::get('/accounting/{account}', 'TransactionsController@showAccount');
-Route::get('/accounting/{account}/reports', 'TransactionsController@getReportsList');
-Route::get('/accounting/{account}/reports/daily-balances', 'TransactionsController@getDailyBalances');
 
 Route::resource('/accounting/expenses', 'ExpensesController');
 Route::post('/accounting/expenses/{expenseid}', 'ExpensesController@update');

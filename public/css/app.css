@@ -461,4 +461,13 @@ html {
   padding: 0;
   margin: 2px; }
 
+.print-only {
+  display: none; }
+
+@media print {
+  .print-hide {
+    display: none; }
+  .print-only {
+    display: block; } }
+
 /*# sourceMappingURL=app.css.map */

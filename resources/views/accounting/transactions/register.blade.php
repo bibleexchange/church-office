@@ -36,9 +36,9 @@
 	
 	
 	<tr>
-		<td>
+		<td><a href="{{$entry->url}}">
 		$ {!! $entry->amount !!} | 
-		
+		</a>
 		</td>
 		<td>
 		{!! $entry->date !!}

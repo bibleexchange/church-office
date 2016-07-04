@@ -8,34 +8,75 @@ use App\Expense;
 use App\Entity;
 use App\Report;
 use App\Transaction;
+use App\TransactionDetail;
 use App\Libraries\Helpers;
 use Input, Redirect;
+use Auth;
 
 class TransactionsController extends OfficeController {
 
  public function index()
     {
-		$entities = Entity::orderBy('name','ASC')->get();
+		$entities = Entity::orderBy('name','ASC')->lists('name','id');
 		$transactions = Transaction::orderBy('date','DESC')->paginate(10);
 		$categories = \App\Category::lists('name','id');
 
         return view('accounting.transactions.index',compact('transactions','categories','entities'));
     }
 
+	 public function show($transaction_id)
+    {
+		$transaction = Transaction::find($transaction_id);
+
+		if ($transaction->details->count() === 0){
+			$details = new TransactionDetail;
+		}else{
+			$details = $transaction->details->first();
+		}
+		
+        return view('accounting.transactions.show-transaction',compact('transaction','details'));
+    }
+	
 	public function update($id)
 	{
 		$input = Input::all();
-// + last_edit_by_id from Auth::user()->id
-		$expense = Expense::find($input['expense_id']);
+
+		$transaction = Transaction::find($input['transaction_id']);
 		
-		$ignore_these = ["_token","expense_id"];
+		$ignore_these = ["_token","transaction_id","_method"];
 		
 		foreach($input AS $key=>$value){
 			if(!in_array($key, $ignore_these)){
-				$expense[$key] = $value;
+				$transaction[$key] = $value;
 			}
 		}
-		$expense->save();
+		
+		$transaction->last_edit_by = Auth::user()->id;
+		
+		$transaction->save();
+		
+		return Redirect::back();
+	}
+ 
+ public function updateDetails($id)
+	{
+		$input = Input::all();
+		$details = TransactionDetail::where('transaction_id',$id)->first();
+		
+		if($details === null){
+			$details = new TransactionDetail;
+			$details->transaction_id = $id;
+		}
+
+		$ignore_these = ["_token","transaction_id","_method"];
+
+		foreach($input AS $key=>$value){
+			if(!in_array($key, $ignore_these)){
+				$details[$key] = $value;
+			}
+		}
+		dd($details);
+		$details->save();
 		
 		return Redirect::back();
 	}
@@ -68,47 +109,31 @@ class TransactionsController extends OfficeController {
         return view('accounting.transactions.show',compact('categories','entities','entity','items','transactions','colors'));
     }
 	
-	public function getReportsList($entity_string)
-    {
-		$entity_id = explode('_',$entity_string)[0];
-		$entity = Entity::find($entity_id);		
-		$reports = new Report($entity,$entity->transactionsAll());
-		
-		return view('accounting.transactions.show',compact('categories','entities','entity','items','transactions','colors'));
-    }
-	
-	public function getDailyBalances($entity_string)
-    {
-		$entity_id = explode('_',$entity_string)[0];
-		$entity = Entity::find($entity_id);		
-		$transactions = $entity->transactionsAll();
-	
-		$entries = [];
-		$register_balance = 0.00;
-		
-	foreach($entity->transactionsAll() AS $transaction)
+	public function store()
 	{
-		if($transaction->from_entity_id == $entity->id){
-			$register_balance = $register_balance - $transaction->amount;
-		}else{
-			$register_balance = $register_balance + $transaction->amount;
-		}		
-		
-		$entry = new \stdClass();
-		$entry->date = $transaction->date;
-		$entry->amount = number_format($transaction->amount,2);
-		$entry->category = $transaction->category->name;
-		$entry->from = $transaction->from->name;
-		$entry->to = $transaction->to->name;
-		$entry->balance = number_format($register_balance,2);
-		
-		array_push($entries,$entry);
-		
+			$transaction = new Transaction;  
+			
+			$transaction->amount = Input::get('amount');		
+			$transaction->from_entity_id = Input::get('from_entity_id');
+			$transaction->to_entity_id = Input::get('to_entity_id');
+			$transaction->category_id = Input::get('category_id');
+			$transaction->date = Input::get('date');
+			$transaction->memo = Input::get('memo');
+			$transaction->seriel = Input::get('seriel');
+			$transaction->last_edit_by_id = Auth::user()->id;
+			$transaction->save();
+		 
+			return Redirect::back()->with('message', 'Transaction successfully created!');
+
 	}
-		$register_balance = number_format($register_balance,2);
 	
-        return view('accounting.transactions.daily',compact('entity','entries','register_balance'));
-    }
-	
+	public function destroy()
+	{
+			$transaction = Transaction::find(Input::get('transaction_id'));  
+			$transaction->delete();
+		 
+			return Redirect::back()->with('message', 'Transaction successfully deleted!');
+
+	}
 	
 }

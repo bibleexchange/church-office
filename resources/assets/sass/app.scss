@@ -1,3 +1,11 @@
 @import "../../../node_modules/node-bourbon/node_modules/bourbon/app/assets/stylesheets/_bourbon.scss";
 @import "login";
 @import "gift-modal";
+
+.print-only {display:none;}
+
+@media print {
+
+.print-hide {display:none;}
+.print-only {display:block;}
+}

@@ -1,38 +1,36 @@
 <?php namespace App;
 
+class ReportTemplate {
+	public function __construct($title,$url){
+		$this->title = $title;
+		$this->url = $url;
+	}
+}
+
 class Report {
 	
-	public function __construct($account, $transactions){
-		$this->account = $account;
-		$this->transactions = $transactions;
-		$this->debits = [];
-		$this->credits = [];
-		$this->creditsSum = 0;
-		$this->debitsSum = 0;
-		$this->balance = 0;
-		
+	public $list = [];
+	
+	public function __construct(){
 		$this->initialize();
-
 	}
 	
 	public function initialize()
 	  {
 		
-		foreach($this->transactions AS $trans){
-			
-			if($trans->from->id == $this->account->id){
-				array_push($this->debits,$trans);
-				$this->debitsSum = $trans->amount;
-			}else{
-				array_push($this->credits,$trans);
-				$this->creditsSum = $trans->amount;
-			}
-			
-		}
+		$userContributions = new ReportTemplate('User Contributions','/accounting/reports/user-contributions');
+		$cashRegister = new ReportTemplate('Cash Register','/accounting/reports/daily-balances/820');
+		$missionsRegister = new ReportTemplate('Missions Register','/accounting/reports/daily-balances/818');
+		$generalRegister = new ReportTemplate('General Register','/accounting/reports/daily-balances/816');
+		$buildingFundRegister = new ReportTemplate('Building Fund Register','/accounting/reports/daily-balances/819');
+		$discretionaryRegister = new ReportTemplate('Descretionary Register','/accounting/reports/daily-balances/817');
 		
-		$this->balance = $this->creditsSum - $this->debitsSum;
-		
-		dd($this);
+		$this->list = [$userContributions,$cashRegister,$generalRegister,$missionsRegister,$discretionaryRegister,$buildingFundRegister];
 	  }
+	
+	public static function all(){
+		$report = new Report;
+		return $report->list;
+	}
 	
 }

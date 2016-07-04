@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use App\Card;
+use App\Meta;
 
 class Entity extends Model {
 	
@@ -17,6 +18,19 @@ class Entity extends Model {
 	public function metas()
     {
     	return $this->hasMany('App\EntityMeta','entity_id');
+    }
+	
+	public function getMeta($name)
+    {
+		$meta = Meta::where('name',$name)->first();
+	
+		if($this->metas->count() !== 0){
+			return $this->metas->where('type',$meta->id)->last()->value;
+		}else{
+			return false;
+		}
+		
+		
     }
 	
 	public function debits()
@@ -57,7 +71,7 @@ class Entity extends Model {
 			$this->name . " (" . $this->typeOf->name . ")",
 			"$ " . number_format($this->balance(),2),
 			"",
-			"/accounting/transactions/" . $this->id . "_" . str_replace(" ","-",strtolower($this->name)),
+			"/accounting/" . $this->id . "_" . str_replace(" ","-",strtolower($this->name)),
 			"ion ion-stats-bars",
 			[],
 			1); 

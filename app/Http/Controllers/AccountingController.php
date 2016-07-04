@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Contact;
+use App\Entity;
 use App\EntityType;
 use App\Expense;
 use App\Transaction;
@@ -9,24 +10,17 @@ use Auth, Input, Flash;
 class AccountingController extends Controller {
 
 public function __construct() {
+		$this->middleware('auth');
+	}
 	
-	$this->middleware('auth');
-	
-	$this->contact = new \App\Contact;
-	$this->account = new \App\Account;
-	$this->deposit = new \App\Deposit;
-	$this->offering = new \App\Offering;
-	$this->gift = new \App\Gift;
-	
-	$this->deposits = $this->deposit->orderBy('deposited','DESC')->limit(25)->get();
-	
-}
 public function getIndex()
 	{ 
-		
+		$entities = Entity::orderBy('name','ASC')->lists('name','id');
 		$cards = [];
 		$accounts = EntityType::accounts();
 		
+		$mostRecentTransaction = Transaction::get()->last();
+
 		$categories = \App\Category::lists('name','id');
 		
 		foreach($accounts AS $account)
@@ -53,75 +47,10 @@ public function getIndex()
 			'cards'=>$cards,
 			'items'=>$items,
 			'categories'=>$categories,
-			'colors'=>$colors
+			'colors'=>$colors,
+			'entities'=>$entities,
+			'mostRecentTransaction'=>$mostRecentTransaction
 		]);
 	}
 
-	public function getIndexOld()
-	{
-		
-		$deposits = $this->deposit->get();
-		$inAmount = 0;
-		$outAmount = 0;
-		
-		foreach($deposits AS $deposit){
-			$inAmount = $inAmount + $deposit->totalAmount();
-		}
-		
-		$expenses = Expense::all();
-		
-		foreach($expenses AS $expense){
-			$outAmount = $outAmount + $expense->amount;
-		}
-		
-		$difference = number_format($inAmount-$outAmount);
-		
-		$deposits = new Card('Deposits',$this->deposit->count(),'','/accounting/deposits','ion ion-stats-bars',[],1); 
-		$expenses = new Card('Expenses','$ '. $difference ,'','/accounting/expenses','ion ion-bag',[],2); 
-		
-		$cards = [$deposits, $expenses];
-		
-		return view('accounting.index',[
-			'pageTitle'=>'Accounting Main',
-			'cards'=>$cards
-		]);
-	}
-	
-	public function getPrint()
-	{
-
-		return view(
-			'office.print',[
-			'pageTitle'=>'print',
-			'deposits'=>$this->deposit->selectList(),
-			'offerings'=>$this->offering->selectList(20),
-			]);
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function getRemind()
-	{
-		return view(
-			'office.users.remind',[
-			'pageTitle'=>'Register'
-			]);
-	}
-/*
-
- <h1>
-	Balance : $ {!! number_format($transactions->sum('amount')) !!}
-	<small>({!!$transactions->first()->date!!} to {!!$transactions->last()->date!!})</small>
-</h1>
-
-<ol class="breadcrumb">
-   <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="/accounting"><i class="fa fa-money"></i> Accounting</a></li>
-   <li class="active">Transactions</li>
-</ol>
-
-*/
 }

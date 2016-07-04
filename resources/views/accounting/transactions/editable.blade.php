@@ -21,10 +21,28 @@
 		.payee {width:200px;}
 		.category {width:155px;}
 		.account {}
-		.date {}
-		.submit {margin-left:20px;}
-		
+		.delete {float:left;}
+		.delete-button {width:75px;margin-right:20px;background-color:red; float:left;}
+		.submit {margin-left:20px; width:50px;}
+		.hidden {display:none;}
+		#delete-form {float:right;}
 		</style>
+		
+		<script>
+		
+		function confirmDelete(transaction){
+			
+			var hiddenForm = document.getElementById("delete-form-"+transaction);
+			
+			if(hiddenForm.className !== 'show'){
+				hiddenForm.className = 'show';
+			}else{
+				hiddenForm.className = 'hidden';
+			}
+
+		}
+		
+		</script>
 		
 		<div class="box-footer">
 		
@@ -46,10 +64,37 @@
 
 [ 'amount','from_entity_id','to_entity_id', 'category_id','date','memo','seriel','last_edit_by_id'];
 -->
+
+<?php $date = null; $hr = null; ?>
+
 	@foreach($transactions AS $transaction)
+		
+		<?php 
+		if($date == $transaction->date){
+			$hr = null;
+		}else{
+			$date = $transaction->date;
+			$hr = "<hr>";
+		}
+		 ?>
+	
+	{!! $hr !!}
+	
 	<div class="row">
 		<div class="col-sm-12">
-		{!! Form::open(['url'=>'/accounting/transactions/'.$transaction->id,'method'=>'update']) !!}
+		
+		<button class="expensed delete-button" onclick="confirmDelete({!!$transaction->id!!})"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>
+		
+		<div id="delete-form-{!!$transaction->id!!}" class="hidden">
+		
+		{!! Form::open(['url'=>'/accounting/transactions/'.$transaction->id,'method'=>'delete','class'=>'delete']) !!}
+			{!! Form::hidden('transaction_id', $transaction->id) !!}
+			<button class="expensed delete-button"><span class="glyphicon glyphicon-x" aria-hidden="true"></span>Confirm Delete </button>
+		{!! Form::close() !!}
+		
+		</div>
+		
+		{!! Form::open(['url'=>'/accounting/transactions/'.$transaction->id,'method'=>'patch']) !!}
 			{!! Form::hidden('transaction_id', $transaction->id) !!}
 			{!! Form::text('amount', $transaction->amount,['class'=>'expensed amount']) !!}
 			{!! Form::select('from_entity_id', $entities ,$transaction->from_entity_id,['class'=>'expensed payee'])!!}
@@ -58,8 +103,10 @@
 			{!! Form::text('date', $transaction->date,['class'=>'expensed date']) !!}
 			{!! Form::text('memo', $transaction->memo,['class'=>'expensed memo']) !!}
 			{!! Form::text('seriel', $transaction->seriel,['class'=>'expensed check']) !!}
-			<button class="expensed submit"><span class="glyphicon glyphicon-save" aria-hidden="true"></span></button>
+			<button class="expensed submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+			<a href="/accounting/transactions/{!!$transaction->id!!}">details</a>
 		{!! Form::close() !!}
+		
 		</div>
 	</div>
 	@endforeach

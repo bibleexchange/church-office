@@ -4,9 +4,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class EntityMeta extends Model {
 	
-	protected $table = 'entity_types';
+	protected $table = 'entity_meta';
 	public $timestamps = false;
-	protected $fillable = [ 'name'];
+	protected $fillable = [ 'entity_id','value','type'];
 	
 	public function entity()
 	{

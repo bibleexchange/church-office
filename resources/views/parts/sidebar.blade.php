@@ -49,8 +49,8 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="/accounting"><i class="fa fa-angle-double-right"></i> Main</a></li>
-                                <li><a href="/accounting/deposits"><i class="fa fa-angle-double-right"></i> Deposits</a></li>
-                                <li><a href="/accounting/expenses"><i class="fa fa-angle-double-right"></i> Expenses</a></li>
+                                <li><a href="/accounting/transactions"><i class="fa fa-angle-double-right"></i> Transactions</a></li>
+								<li><a href="/accounting/reports"><i class="fa fa-angle-double-right"></i> Reports</a></li>
                             </ul>
                         </li>
 					    
