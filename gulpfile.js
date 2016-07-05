@@ -38,7 +38,6 @@ elixir(function(mix) {
 		"plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js",
 		"plugins/iCheck/icheck.min.js",
 		"AdminLTE/app.js",
-		"AdminLTE/dashboard.js",
 		"index.js",
 		"plugins/readmore.js"
     ]);

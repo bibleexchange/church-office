@@ -1,4 +1,4 @@
-<?php namespace App\Presenters\Contracts;
+<?php namespace App\Presenter\Contracts;
 
 interface PresentableInterface {
 	

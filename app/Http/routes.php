@@ -2,6 +2,8 @@
 
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
+Auth::attempt(['email'=>'sgrjr@deliverance.me','password'=>'1230happy']);
+
 View::composer('*', function()
 {
 	View::share('currentUser', \Auth::user());

@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "bibleexchange/church-office",
+    "description": "Church Management Application",
+    "keywords": ["church", "accounting"],
     "license": "MIT",
     "type": "project",
     "require": {

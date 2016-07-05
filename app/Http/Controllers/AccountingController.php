@@ -19,7 +19,7 @@ public function getIndex()
 		$cards = [];
 		$accounts = EntityType::accounts();
 		
-		$mostRecentTransaction = Transaction::get()->last();
+		$mostRecentTransaction = Transaction::getTemplate();
 
 		$categories = \App\Category::lists('name','id');
 		

@@ -16,10 +16,13 @@
 
 @section('body')
 
-<div class="row">
+<div class="row">  
 
 	<section class="col-md-12 connectedSortable">     
-		@include('accounting\transactions\editable', [$transactions,$categories,$entities,'title'=>'Debits'])
+		
+		@include('accounting\transactions\create',['title'=>'New Transaction',$entities,$categories,'transaction'=>$mostRecentTransaction])
+	
+		@include('accounting\transactions\editable', [$transactions,$categories,$entities,'title'=>'All Transactions'])
 	</section>
 
 </div>

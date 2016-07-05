@@ -18,7 +18,7 @@
 	<div class="row connectedSortable">
 	
 		<section class="col-md-12 connectedSortable">     
-			@include('accounting\transactions\create',['title'=>'New Transaction',$entities,$categories,'transaction'=>$mostRecentTransaction])
+@include('accounting\transactions\create',['title'=>'New Transaction',$entities,$categories,'transaction'=>$mostRecentTransaction])
 		</section>
 	
 		 @foreach($cards AS $card)

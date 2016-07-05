@@ -1,12 +1,17 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Presenter\PresentableTrait;
 
 class Transaction extends Model {
+	
+	use PresentableTrait;
 	
 	protected $table = 'transactions';
 	public $timestamps = true;
 	protected $fillable = [ 'amount','from_entity_id','to_entity_id', 'category_id','date','memo','seriel','last_edit_by_id'];
+	
+	protected $presenter = 'App\TransactionPresenter';
 	
 	public function details()
 	{
@@ -69,6 +74,16 @@ class Transaction extends Model {
 			return "<span style='color:red;'>" . number_format($enteredAmount,2) . " DOES NOT EQUAL CALCULATED: " . number_format($calculatedAmount,2) . "</span>";
 		}
 
+	}
+	
+	public static function getTemplate(){
+		$mostRecentTransaction = Transaction::get()->last();
+		$mostRecentTransaction->amount = null;
+		$mostRecentTransaction->memo = null;
+		$mostRecentTransaction->seriel = null;
+		
+		return $mostRecentTransaction;
+		
 	}
 	
 }

@@ -28,20 +28,6 @@ class TransactionDetail extends Model {
 	public $timestamps = true;
 	protected $fillable = [ "penny","nickel","dime","quarter","halfD","oneD","twoD","fiveD","tenD","twentyD","fiftyD","hundredD","checks","checks_sum"];
 	
-	 public $penny = 0; 
-	 public $nickel = 0; 
-	 public $dime = 0; 
-	 public $quarter = 0; 
-	 public $halfD = 0; 
-	 public $oneD = 0; 
-	 public $twoD = 0; 
-	 public $fiveD = 0; 
-	 public $tenD = 0; 
-	 public $twentyD = 0; 
-	 public $fiftyD = 0; 
-	 public $hundredD = 0; 
-	 public $checks = 0;
-	
 	public function transaction()
 	{
 	    return $this->belongsTo('App\Transaction','transaction_id');

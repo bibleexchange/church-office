@@ -10,107 +10,74 @@
 
 			<h3 class="box-title">{{$title}}</h3>
 		</div><!-- /.box-header -->
-		
-		<style>
-		
-		.expensed {display:inline-block; overflow:hidden; width:12%;}
-		
-		.check {width:55px;}
-		.amount {width:70px;}
-		.memo {width:100px;}
-		.payee {width:200px;}
-		.category {width:155px;}
-		.account {}
-		.delete {float:left;}
-		.delete-button {width:75px;margin-right:20px;background-color:red; float:left;}
-		.submit {margin-left:20px; width:50px;}
-		.hidden {display:none;}
-		#delete-form {float:right;}
-		</style>
-		
-		<script>
-		
-		function confirmDelete(transaction){
 			
-			var hiddenForm = document.getElementById("delete-form-"+transaction);
-			
-			if(hiddenForm.className !== 'show'){
-				hiddenForm.className = 'show';
-			}else{
-				hiddenForm.className = 'hidden';
-			}
-
-		}
-		
-		</script>
-		
 		<div class="box-footer">
 		
-		<center>{!!$transactions->render() !!}</center>
-		
 			<div class="row">
-				<div class="col-sm-12">
-					<div class="expensed amount">$</div>
-					<div class="expensed payee">Payer</div>
-					<div class="expensed payee">Payee</div>					
-					<div class="expensed category">Category</div>
-					<div class="expensed date">date</div>
-					<div class="expensed memo">Memo</div>
-					<div class="expensed check">Check #</div>
-					<div class="expensed submit"></div>
-				</div>
+				<center>{!!$transactions->render() !!}</center>
 			</div>
-<!--
-
-[ 'amount','from_entity_id','to_entity_id', 'category_id','date','memo','seriel','last_edit_by_id'];
--->
-
-<?php $date = null; $hr = null; ?>
+			
+<?php $date = null; $hr = "<hr>"; ?>
 
 	@foreach($transactions AS $transaction)
 		
 		<?php 
 		if($date == $transaction->date){
-			$hr = null;
+			$hr = "<br>";
 		}else{
 			$date = $transaction->date;
-			$hr = "<hr>";
+			$hr = "<div class='date-break'>" . $transaction->present()->date ."</div>";
 		}
+		
 		 ?>
 	
 	{!! $hr !!}
+	<button class="transaction-button collapsed" data-toggle="collapse" data-target="#edit-{{$transaction->id}}">
 	
-	<div class="row">
-		<div class="col-sm-12">
+		<div class="closed">
+			<div class="expensed button"><span class="glyphicon glyphicon-edit"></span></div>
+			<div class="expensed spacer"></div>
+			<div class="expensed payer">$ {{$transaction->from->name}}</div>
+			<div class="expensed spacer"><span class="glyphicon glyphicon-hand-right pull-right" aria-hidden="true"></span></div>
+			<div class="expensed payer">{{$transaction->to->name}}</div>
+<div class="expensed spacer"></div>
+			<div class="expensed details">{{$transaction->seriel}} - {{$transaction->category->name}} - {{$transaction->memo}}</div>
+			<div class="expensed amount">{{$transaction->amount}}</div>
+		</div>	
+		<div class="opened"><span class="glyphicon glyphicon-remove"></span> </span>
+		</div>
+	 </button>
+	 
+	 
+	  <div id="edit-{{$transaction->id}}" class="edit-transaction collapse">
 		
-		<button class="expensed delete-button" onclick="confirmDelete({!!$transaction->id!!})"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>
+		<div class="row">
+			<div class="col-md-6 transaction-options">
+				<button class="delete-button delete" onclick="confirmDelete({!!$transaction->id!!})"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>  DELETE
+				</button>
 		
-		<div id="delete-form-{!!$transaction->id!!}" class="hidden">
-		
-		{!! Form::open(['url'=>'/accounting/transactions/'.$transaction->id,'method'=>'delete','class'=>'delete']) !!}
-			{!! Form::hidden('transaction_id', $transaction->id) !!}
-			<button class="expensed delete-button"><span class="glyphicon glyphicon-x" aria-hidden="true"></span>Confirm Delete </button>
-		{!! Form::close() !!}
-		
+				<div id="delete-form-{!!$transaction->id!!}" class="hidden">
+				
+					{!! Form::open(['url'=>'/accounting/transactions/'.$transaction->id,'method'=>'delete','class'=>'delete']) !!}
+						{!! Form::hidden('transaction_id', $transaction->id) !!}
+						<button class="expensed delete-button">
+						<span class="glyphicon glyphicon-remove"></span> Are you sure? YES</button>
+					{!! Form::close() !!}
+					
+					<button class="cancel-button" onclick="confirmDelete({!!$transaction->id!!})"><span class="glyphicon glyphicon-left-arrow" ></span>  Cancel
+					</button>
+				</div>
+			</div>
+			<div class="col-md-6 getdetails">
+				<a href="/accounting/transactions/{!!$transaction->id!!}">DETAILS</a>
+			</div>
 		</div>
 		
-		{!! Form::open(['url'=>'/accounting/transactions/'.$transaction->id,'method'=>'patch']) !!}
-			{!! Form::hidden('transaction_id', $transaction->id) !!}
-			{!! Form::text('amount', $transaction->amount,['class'=>'expensed amount']) !!}
-			{!! Form::select('from_entity_id', $entities ,$transaction->from_entity_id,['class'=>'expensed payee'])!!}
-			{!! Form::select('to_entity_id', $entities ,$transaction->to_entity_id,['class'=>'expensed payee'])!!}
-			{!! Form::select('category_id', $categories ,$transaction->category_id,['class'=>'expensed category']) !!}
-			{!! Form::text('date', $transaction->date,['class'=>'expensed date']) !!}
-			{!! Form::text('memo', $transaction->memo,['class'=>'expensed memo']) !!}
-			{!! Form::text('seriel', $transaction->seriel,['class'=>'expensed check']) !!}
-			<button class="expensed submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-			<a href="/accounting/transactions/{!!$transaction->id!!}">details</a>
-		{!! Form::close() !!}
-		
+		<hr>	
+@include('accounting/transactions/form',["url"=>"/accounting/transactions/".$transaction->id,"method"=>"patch","submit_text"=>"Update"])
+			
 		</div>
-	</div>
 	@endforeach
-	
-			</div><!-- /.row -->
+
 		</div><!-- /.box-footer -->
 	</div><!-- /.box -->    

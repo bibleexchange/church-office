@@ -9,3 +9,214 @@
 .print-hide {display:none;}
 .print-only {display:block;}
 }
+
+#loading-example {
+		overflow:hidden;
+		height:1000px;
+	}
+	
+	.expensed {
+		display:inline-block; 
+		width:15%; 
+		height:25px;     
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	
+	.expensed.details {
+		width:28%;
+	}
+	
+	.expensed.payer {
+		width:23%; 
+	}
+	
+	.expensed.amount {
+		float:right;
+	}
+	
+	.expensed.spacer {
+		width:10px;
+	}
+	
+	.expensed.button {
+		width:2%;
+		min-width:20px;
+	}
+	
+	@media screen and (max-width: 650px){
+		.details {
+			display:none;
+		}
+		
+		.payer {
+			width:40%; 
+		}
+	}
+	
+	@media screen and (max-width: 750px){
+		.details {
+			width:15%;
+		}
+	}
+
+	.submit {margin-left:20px; width:50px; background-color:#3cc53c; height:60px}
+	
+	.hidden {display:none;}
+	
+	.show {
+		position:absolute; 
+		top:0; 
+		left:0; 
+		width:100%; 
+		height:100%; 
+		}
+	
+	.show .delete-button {
+		background-color:#f4543c; 
+		width:50%; 
+		height:100%; 
+		position:absolute; 
+		top:0; 
+		right:0;
+	}
+	
+	.show .cancel-button {
+		background-color:rgb(244, 244, 244);
+		width:50%; 
+		height:100%; 
+		position:absolute; 
+		top:0; 
+		left:0;
+	}
+	
+	.date-break {
+		border-top:solid 1px rgb(244, 244, 244);
+	}
+	
+	.transaction-button {
+		width:100%;
+		text-align:left;
+		background-color:#ecf5e5;
+		padding:5px;
+		margin:1px;
+		border: 1px solid #008c4b;
+		display:block;
+		position:absolute;
+		top:44px;
+		left:0;
+		z-index:1101;
+		height:50px;
+		
+	}
+
+	.transaction-button .closed{display:none;}
+	.transaction-button .opened{display:inherit; text-align:center; }
+	
+	.transaction-button.collapsed .closed{display:inherit;}
+	.transaction-button.collapsed .opened{display:none;}
+	
+	.transaction-button.collapsed {
+		display:block;
+		position:inherit;
+		z-index:0;
+	}
+	
+	.edit-transaction.in {
+		
+		display:block;
+		position:absolute;
+		top:44px;
+		padding-top:60px;
+		left:0;
+		background-color:white;
+		width:100%;
+		z-index:1100;
+		padding-bottom:500px;
+	}
+	
+	.transaction-options {height:60px; text-align:center; vertical-align:middle;}
+	
+	.transaction-options .delete {
+		height:100%; 
+		width:100%; 
+		background-color:#f4543c; 
+		border:none;
+		}
+	
+	.getdetails a{
+		display:block;
+		height:100%;
+		line-height: 60px;
+		color:black;
+		}
+	.getdetails{
+		height:60px;
+		text-align:center;
+		vertical-align:middle;
+		background-color:#3c8dbc;
+		}
+		
+		
+		
+//FORM
+
+	#transaction_form .submit {
+		margin-left:20px; 
+		background-color:#00a65a; 
+		height:40px;
+		width:100%;
+		margin-left:0;
+		}
+	
+	#transaction_form input, #transaction_form select{
+		text-align:center;
+		width:70%;
+		border-color:gray;
+		border-width: 2px;
+		border-top:none;
+		border-left:none;
+		display:block;
+		height:40px;
+	}
+	
+	#transaction_form .trans-label {
+		font-weight:bold;
+		color: #999999;
+		font-size:1.2rem;
+		width:30%;
+		display:block;
+		text-align:right;
+		float:left;
+		border:solid;
+		border-color:gray;
+		border-width: 2px;
+		border-left:none;
+		border-top:none;
+		border-right:none;
+		height:40px;
+		vertical-align:middle;
+	}
+	
+		@media screen and (min-width: 599px){
+			
+			#transaction_form input, #transaction_form select{
+				width:35%;
+				float:left;
+			}
+			
+			#transaction_form .trans-label {
+				width:15%;
+				float:left;
+			}
+			
+			#transaction_form .amount {
+				width:85%;
+				float:left;
+			}
+			
+			#transaction_form .submit {
+				width:100%; 
+			}
+		}

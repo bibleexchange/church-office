@@ -112,7 +112,13 @@
 </table>
 
 <div class="print-hide">
-		Deposit Total: $&nbsp;	{!! Form::open(['url'=>'/accounting/transactions/'.$transaction->id.'/details','method'=>'post','style'=>'display:inline-block; ']) !!}
+
+		Deposit Total: $&nbsp;	
+{!! Form::open([
+	'url'=>'/accounting/transactions/'.$transaction->id,
+	'method'=>'patch',
+	'style'=>'display:inline-block;'
+	]) !!}
 		{!! Form::hidden('transaction_id', $transaction->id) !!}
 		{!! Form::text('amount', $transaction->amount, array('style'=>'display:inline;', 'placeholder'=>'Amount')) !!}</td>
 		<button class="btn success" type="submit" value="NEW Gift"><span class="glyphicon glyphicon-ok"></span></button>
@@ -126,43 +132,37 @@
 
 .details-form td{display:block;}
 </style>
+<hr>
+<div class="print-hide">
+
+@include('accounting/transactions/form',["url"=>"/accounting/transactions/".$transaction->id,"method"=>"patch","submit_text"=>"Update Transaction"])
 
 <hr>
 
-<table class="details-form print-hide">
-	
+@include('accounting/transactions/form-details',["url"=>"/accounting/transactions/".$transaction->id."/details","method"=>"post","submit_text"=>"Update Details"])
 
+<hr>
 
-	<tr>
-	{!! Form::open(['url'=>'/accounting/transactions/'.$transaction->id.'/details','method'=>'post']) !!}
-	
-	<center class="print-hide"><button class="btn success" type="submit" value="NEW Gift"><span class="glyphicon glyphicon-ok"></span> Update</button></center>
-	
-	{!! Form::hidden('transaction_id', $transaction->id) !!}
+<div class="row">
+	<div class="col-sm-12 transaction-options">
+		<button class="delete-button delete" onclick="confirmDelete({!!$transaction->id!!})"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>  DELETE
+		</button>
 
-	<td>Checks Sum: {!! Form::text('checks_sum', $details->checks_sum, array('class'=>'', 'placeholder'=>'Check amount')) !!}</td>
-	<td>Checks Count: {!! Form::text('checks', $details->checks, array('class'=>'', 'placeholder'=>'Checks Count')) !!}</td>
+		<div id="delete-form-{!!$transaction->id!!}" class="hidden">
+		
+			{!! Form::open(['url'=>'/accounting/transactions/'.$transaction->id,'method'=>'delete','class'=>'delete']) !!}
+				{!! Form::hidden('transaction_id', $transaction->id) !!}
+				<button class="expensed delete-button">
+				<span class="glyphicon glyphicon-remove"></span> Are you sure? YES</button>
+			{!! Form::close() !!}
+			
+			<button class="cancel-button" onclick="confirmDelete({!!$transaction->id!!})"><span class="glyphicon glyphicon-left-arrow" ></span>  Cancel
+			</button>
+		</div>
+	</div>
 
-	<td>Pennies: {!! Form::text('penny', $details->penny, array('class'=>'', 'placeholder'=>'.01')) !!}</td>
-	<td>Nickels: {!! Form::text('nickel', $details->nickel, array('class'=>'', 'placeholder'=>'.05')) !!}</td>
-	<td>Dimes: {!! Form::text('dime', $details->dime, array('class'=>'', 'placeholder'=>'.10')) !!}</td>
-	<td>Quarters: {!! Form::text('quarter', $details->quarter, array('class'=>'', 'placeholder'=>'.25')) !!}</td>
-	<td>Half Dollars: {!! Form::text('halfD', $details->halfD, array('class'=>'', 'placeholder'=>'.50')) !!}</td>
+</div>
 
-	</tr>
-	<tr>
-	<td>$1: {!! Form::text('oneD', $details->oneD, array('class'=>'', 'placeholder'=>'$1')) !!}</td>
-	<td>$2: {!! Form::text('twoD', $details->twoD, array('class'=>'', 'placeholder'=>'$2')) !!}</td>
-	<td>$5: {!! Form::text('fiveD', $details->fiveD, array('class'=>'', 'placeholder'=>'$5')) !!}</td>
-	<td>$10: {!! Form::text('tenD', $details->tenD, array('class'=>'', 'placeholder'=>'$10')) !!}</td>
-	<td>$20: {!! Form::text('twentyD', $details->twentyD, array('class'=>'', 'placeholder'=>'$20')) !!}</td>
-	<td>$50: {!! Form::text('fiftyD', $details->fiftyD, array('class'=>'', 'placeholder'=>'$50')) !!}</td>
-	<td>$100: {!! Form::text('hundredD', $details->hundredD, array('class'=>'', 'placeholder'=>'$100')) !!}</td>
-
-	{!! Form::close() !!}
-
-	</tr>
-
-</table>
+</div>
 
 @stop

@@ -1,4 +1,4 @@
-<?php namespace BibleExchange\Presenters\Exceptions;
+<?php namespace App\Presenters\Exceptions;
 
 class PresenterException extends \Exception {
 	
