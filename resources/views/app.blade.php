@@ -46,8 +46,8 @@
 		@yield('scripts-1')
 		
         <script src="/js/all.js" type="text/javascript"></script>
-		
+		<script>
 		@yield('scripts')
-		
+		</script>
     </body>
 </html>

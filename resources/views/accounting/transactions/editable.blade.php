@@ -17,13 +17,16 @@
 				<center>{!!$transactions->render() !!}</center>
 			</div>
 			
-<?php $date = null; $hr = "<hr>"; ?>
+			
+<div id="accordion" role="tablist" aria-multiselectable="true">
+			
+<?php $date = null; $hr = ""; ?>
 
 	@foreach($transactions AS $transaction)
 		
 		<?php 
 		if($date == $transaction->date){
-			$hr = "<br>";
+			$hr = "";
 		}else{
 			$date = $transaction->date;
 			$hr = "<div class='date-break'>" . $transaction->present()->date ."</div>";
@@ -32,52 +35,46 @@
 		 ?>
 	
 	{!! $hr !!}
-	<button class="transaction-button collapsed" data-toggle="collapse" data-target="#edit-{{$transaction->id}}">
 	
-		<div class="closed">
-			<div class="expensed button"><span class="glyphicon glyphicon-edit"></span></div>
-			<div class="expensed spacer"></div>
-			<div class="expensed payer">$ {{$transaction->from->name}}</div>
-			<div class="expensed spacer"><span class="glyphicon glyphicon-hand-right pull-right" aria-hidden="true"></span></div>
-			<div class="expensed payer">{{$transaction->to->name}}</div>
-<div class="expensed spacer"></div>
-			<div class="expensed details">{{$transaction->seriel}} - {{$transaction->category->name}} - {{$transaction->memo}}</div>
-			<div class="expensed amount">{{$transaction->amount}}</div>
-		</div>	
-		<div class="opened"><span class="glyphicon glyphicon-remove"></span> </span>
+	  <div class="panel panel-success">
+		<div class="panel-heading" role="tab" id="heading{{$transaction->id}}">
+		  <h4 class="panel-title">
+			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$transaction->id}}" aria-expanded="false" aria-controls="collapse{{$transaction->id}}">  
+					<div class="expensed button"><span class="glyphicon glyphicon-edit"></span></div>
+					<div class="expensed spacer"></div>
+					<div class="expensed payer">$ {{$transaction->from->name}}</div>
+					<div class="expensed spacer"><span class="glyphicon glyphicon-hand-right pull-right" aria-hidden="true"></span></div>
+					<div class="expensed payer">{{$transaction->to->name}}</div>
+					<div class="expensed spacer"></div>
+					<div class="expensed details">{{$transaction->seriel}} - {{$transaction->category->name}} - {{$transaction->memo}}</div>
+					<div class="expensed amount">{{$transaction->amount}}</div>
+			</a>
+		  </h4>
 		</div>
-	 </button>
-	 
-	 
-	  <div id="edit-{{$transaction->id}}" class="edit-transaction collapse">
-		
-		<div class="row">
-			<div class="col-md-6 transaction-options">
-				<button class="delete-button delete" onclick="confirmDelete({!!$transaction->id!!})"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>  DELETE
-				</button>
-		
-				<div id="delete-form-{!!$transaction->id!!}" class="hidden">
-				
-					{!! Form::open(['url'=>'/accounting/transactions/'.$transaction->id,'method'=>'delete','class'=>'delete']) !!}
-						{!! Form::hidden('transaction_id', $transaction->id) !!}
-						<button class="expensed delete-button">
-						<span class="glyphicon glyphicon-remove"></span> Are you sure? YES</button>
-					{!! Form::close() !!}
-					
-					<button class="cancel-button" onclick="confirmDelete({!!$transaction->id!!})"><span class="glyphicon glyphicon-left-arrow" ></span>  Cancel
-					</button>
+		<div id="collapse{{$transaction->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$transaction->id}}">
+
+		<!-- -->
+		 <div id="edit-{{$transaction->id}}" class="edit-transaction">
+		 
+			 <div class="row">
+				<div class="col-sm-6">
+					@include('accounting/parts/confirm-delete')
+				</div>
+				<div class="col-sm-6">
+					<a class="btn btn-primary" style="width:100%; line-height:40px;" href="/accounting/transactions/{!!$transaction->id!!}">DETAILS</a>
 				</div>
 			</div>
-			<div class="col-md-6 getdetails">
-				<a href="/accounting/transactions/{!!$transaction->id!!}">DETAILS</a>
-			</div>
-		</div>
-		
-		<hr>	
+			
+
+	
 @include('accounting/transactions/form',["url"=>"/accounting/transactions/".$transaction->id,"method"=>"patch","submit_text"=>"Update"])
 			
 		</div>
+		<!-- -->
+		</div>
+	  </div>
+	
 	@endforeach
-
+</div><!-- /.accordion -->
 		</div><!-- /.box-footer -->
 	</div><!-- /.box -->    

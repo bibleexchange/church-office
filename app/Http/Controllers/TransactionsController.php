@@ -21,15 +21,21 @@ class TransactionsController extends OfficeController {
 		$entities = Entity::orderBy('name','ASC')->lists('name','id');
 		$transactions = Transaction::orderBy('date','DESC')->paginate(10);
 		$categories = \App\Category::lists('name','id');
-
-        return view('accounting.transactions.index',compact('transactions','categories','entities','mostRecentTransaction'));
+		
+				
+		$recentTransactions = Transaction::recents();
+		$recentFrom = $recentTransactions->from;
+		$recentTo = $recentTransactions->to;
+		$recentCat = $recentTransactions->category;
+		
+        return view('accounting.transactions.index',compact('transactions','categories','entities','mostRecentTransaction','recentFrom','recentTo','recentCat'));
     }
 
 	 public function show($transaction_id)
     {
 		$entities = Entity::orderBy('name','ASC')->lists('name','id');
 		$categories = \App\Category::lists('name','id');
-		
+	
 		$transaction = Transaction::find($transaction_id);
 		if(!$transaction){
 			return Redirect::to('/accounting/transactions');
@@ -39,8 +45,13 @@ class TransactionsController extends OfficeController {
 		}else{
 			$details = $transaction->details->first();
 		}
-	
-        return view('accounting.transactions.show-transaction',compact('transaction','details','categories','entities'));
+		
+		$recentTransactions = Transaction::recents();
+		$recentFrom = $recentTransactions->from;
+		$recentTo = $recentTransactions->to;
+		$recentCat = $recentTransactions->category;
+		
+        return view('accounting.transactions.show-transaction',compact('transaction','details','categories','entities','recentFrom','recentTo','recentCat'));
     }
 	
 	public function update($id)
@@ -69,13 +80,20 @@ class TransactionsController extends OfficeController {
 		$input = Input::all();
 		$details = TransactionDetail::where('transaction_id',$input['transaction_id'])->first();
 		
+		if(isset($input["_method"])){
+			$m = $input["_method"];
+		}else{
+			$m = null;
+		}
+		
 		$ignore_these = [
-		  "_token" => "6Jxad5Kah4r01JjErwzAvaHcskB71cSK7PVR0JyA",
-		  "transaction_id" => "6641",
-		  "_method" => "post"
+		  "_token" => $input["_token"],
+		  "transaction_id" => $input["transaction_id"],
+		  "_method" => $m
 		];
 
 		$newInput = array_diff($input,$ignore_these);
+
 		$optimizedInput = [];
 		
 		foreach($newInput AS $key=>$value){
@@ -128,7 +146,12 @@ class TransactionsController extends OfficeController {
 			
 		}
 		
-        return view('accounting.transactions.show',compact('categories','entities','entity','items','transactions','colors'));
+		$recentTransactions = Transaction::recents();
+		$recentFrom = $recentTransactions->from;
+		$recentTo = $recentTransactions->to;
+		$recentCat = $recentTransactions->category;
+		
+        return view('accounting.transactions.show',compact('categories','entities','entity','items','transactions','colors','recentFrom','recentTo','recentCat'));
     }
 	
 	public function store()

@@ -1,8 +1,12 @@
 <?php
+/*
+$jess = new App\User;
+$jess->email = 'jlcarle7@gmail.com';
+$jess->setPassword('jeremiah7');
+$jess->save();
+*/
 
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-
-Auth::attempt(['email'=>'sgrjr@deliverance.me','password'=>'1230happy']);
 
 View::composer('*', function()
 {
@@ -42,6 +46,10 @@ Route::post('/accounting/transactions/{transaction}/details', 'TransactionsContr
 
 Route::get('/accounting/reports', 'ReportsController@index');
 Route::get('/accounting/reports/daily-balances/{account}', 'ReportsController@getDailyBalances');
+Route::get('/accounting/reports/entity-transactions', 'ReportsController@getEntityTransactionsIndex');
+Route::get('/accounting/reports/entity-transactions/{entity}', 'ReportsController@getEntityTransactions');
+
+
 Route::get('/accounting/{account}', 'TransactionsController@showAccount');
 
 Route::resource('/accounting/expenses', 'ExpensesController');

@@ -16,30 +16,27 @@ elixir(function(mix) {
     mix.sass('login.scss');
 	mix.styles([
 		"bootstrap.css",
+		"bootstrap.css.map",
+		"bootstrap-theme.css",
+		"bootstrap-theme.css.map",
 		"font-awesome.css",
 		"ionicons.css",
-		"morris/morris.css",
-		"jvectormap/jquery-jvectormap-1.2.2.css",
-		"fullcalendar/fullcalendar.css",
-		"daterangepicker/daterangepicker-bs3.css",
-		"bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css",
-		"AdminLTE.css"
+		"morris.css",
+		"AdminLTE.css",
+		"select2.css"
     ]);
 
     mix.scripts([
-		"bootstrap.js",
-		"plugins/morris/morris.min.js",
-		"plugins/sparkline/jquery.sparkline.min.js",
-		"plugins/jvectormap/jquery-jvectormap-1.2.2.min.js",
-		"plugins/jvectormap/jquery-jvectormap-world-mill-en.js",
-		"plugins/fullcalendar/fullcalendar.min.js",
-		"plugins/jqueryKnob/jquery.knob.js",
-		"plugins/daterangepicker/daterangepicker.js",
-		"plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js",
-		"plugins/iCheck/icheck.min.js",
-		"AdminLTE/app.js",
+		"jquery-2.2.4.js",
+		"jquery-migrate-1.4.1.js",
+		"jquery.knob.js",
 		"index.js",
-		"plugins/readmore.js"
+		"jquery.slimscroll.js",
+		"select2.js",
+		"searchable.dropdown.app.js",
+		"bootstrap.js",
+		"morris.min.js",
+		"admin-lte.js"
     ]);
 	
 });

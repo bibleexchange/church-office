@@ -86,4 +86,32 @@ class Transaction extends Model {
 		
 	}
 	
+	public static function recents(){
+		
+		$transactions = Transaction::orderBy('updated_at','DESC')->take(50)->get();
+		
+		$recents = new \stdClass();
+		$recents->from = [];
+		$recents->to = [];
+		$recents->category = [];
+		
+		foreach($transactions AS $t){
+			
+			if(count($recents->from) < 10){
+				$recents->from[$t->from->id] = $t->from->name;
+			}
+			
+			if(count($recents->to) < 10){
+				$recents->to[$t->to->id] = $t->to->name;
+			}
+			
+			if(count($recents->category) < 10){
+				$recents->category[$t->category->id] = $t->category->name;
+			}
+			
+		}
+		
+		return $recents;
+	}
+	
 }

@@ -15,6 +15,6 @@ class Category extends Model {
 	
 	public function transactions()
     {
-        return $this->hasMany('\App\Transaction','category_id');
+        return $this->hasMany('App\Transaction','category_id');
     }
 }

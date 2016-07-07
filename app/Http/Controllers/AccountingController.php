@@ -16,12 +16,15 @@ public function __construct() {
 public function getIndex()
 	{ 
 		$entities = Entity::orderBy('name','ASC')->lists('name','id');
+
+		$recentTransactions = Transaction::recents();
+
 		$cards = [];
 		$accounts = EntityType::accounts();
 		
 		$mostRecentTransaction = Transaction::getTemplate();
 
-		$categories = \App\Category::lists('name','id');
+		$categories = \App\Category::orderBy('name','ASC')->lists('name','id');
 		
 		foreach($accounts AS $account)
 		{
@@ -49,7 +52,10 @@ public function getIndex()
 			'categories'=>$categories,
 			'colors'=>$colors,
 			'entities'=>$entities,
-			'mostRecentTransaction'=>$mostRecentTransaction
+			'mostRecentTransaction'=>$mostRecentTransaction,
+			'recentFrom'=>$recentTransactions->from, 
+			'recentTo'=>$recentTransactions->to, 
+			'recentCat'=>$recentTransactions->category
 		]);
 	}
 

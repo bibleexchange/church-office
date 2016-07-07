@@ -56,4 +56,19 @@ class ReportsController extends OfficeController {
         return view('accounting.transactions.daily',compact('entity','entries','register_balance'));
     }
 	
+	public function getEntityTransactionsIndex()
+    {
+		$entities = Entity::where('entity_type_id','!=',6)->get();
+		$cards = [];
+		
+		foreach($entities AS $entity)
+		{
+			if($entity->debits->sum('amount') > 0 ){
+				array_push($cards, $entity->transactionsCard());
+			}
+		}
+		
+        return view('accounting.reports.entity-contributions.index',compact('cards'));
+    }
+
 }

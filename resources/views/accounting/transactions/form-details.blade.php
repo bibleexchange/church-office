@@ -1,48 +1,106 @@
 {!! Form::open(['url'=>$url,'method'=>$method,'id'=>'transaction_form']) !!}
 
 	{!! Form::hidden('transaction_id', $transaction->id) !!}
-	<br>
-	<span class="trans-label">Checks Sum:</span>
-	{!! Form::text('checks_sum', $details->checks_sum, array('class'=>'', 'placeholder'=>'Check amount')) !!}
 	
-	<span class="trans-label">Checks #:</span>
-	{!! Form::text('checks', $details->checks, array('class'=>'', 'placeholder'=>'Checks Count')) !!}
-	
-	<span class="trans-label">Pennies:</span>
-	{!! Form::text('penny', $details->penny, array('class'=>'', 'placeholder'=>'.01')) !!}
-	
-	<span class="trans-label">Nickels:</span>
-	{!! Form::text('nickel', $details->nickel, array('class'=>'', 'placeholder'=>'.05')) !!}
-	
-	<span class="trans-label">Dimes:</span>
-	{!! Form::text('dime', $details->dime, array('class'=>'', 'placeholder'=>'.10')) !!}
-	
-	<span class="trans-label">Quarters:</span>
-	{!! Form::text('quarter', $details->quarter, array('class'=>'', 'placeholder'=>'.25')) !!}
-	
-	<span class="trans-label">Half Dollars:</span>
-	{!! Form::text('halfD', $details->halfD, array('class'=>'', 'placeholder'=>'.50')) !!}
+<div class="row">
+  <div class="col-lg-6">
 
-	<span class="trans-label">$1: </span>
-	{!! Form::text('oneD', $details->oneD, array('class'=>'', 'placeholder'=>'$1')) !!}
+	<div class="form-group">   
+		<div class="input-group">
+		  <div class="input-group-addon">Checks Sum: </div>
+		  {!! Form::text('checks_sum', $details->checks_sum, array('class'=>'form-control', 'placeholder'=>'Check amount',
+		  'onChange'=> 'calculateChecks()')) !!}
+		</div>
+	</div>
+	<div class="form-group">		
+		<div class="input-group">
+		  <div class="input-group-addon">Checks #:</div>
+		  {!! Form::text('checks', $details->checks, array('class'=>'form-control', 'placeholder'=>'Checks Count')) !!}
+		</div>
+	</div>
+	<div class="form-group">		
+		<div class="input-group">
+		  <div class="input-group-addon">Pennies:</div>
+		  {!! Form::text('penny', $details->penny, array('class'=>'form-control', 'placeholder'=>'.01')) !!}
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+		  <div class="input-group-addon">Nickels:</div>
+		  {!! Form::text('nickel', $details->nickel, array('class'=>'form-control', 'placeholder'=>'.05')) !!}
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+		  <div class="input-group-addon">Dimes:</div>
+		  {!! Form::text('dime', $details->dime, array('class'=>'form-control', 'placeholder'=>'.10')) !!}
+		</div>
+	</div>
+	<div class="form-group">		
+		<div class="input-group">
+		  <div class="input-group-addon">Quarters:</div>
+		  {!! Form::text('quarter', $details->quarter, array('class'=>'form-control', 'placeholder'=>'.25')) !!}
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+		  <div class="input-group-addon">Half Dollars:</div>
+		  {!! Form::text('halfD', $details->halfD, array('class'=>'form-control', 'placeholder'=>'.50')) !!}
+		</div>
+			</div>
+
+  </div><!-- /.col-lg-6 -->
+  <div class="col-lg-6">
+	<div class="form-group">
+		<div class="input-group">
+			<div class="input-group-addon">$1: </div>
+			{!! Form::text('oneD', $details->oneD, array('class'=>'form-control', 'placeholder'=>'$1')) !!}
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<div class="input-group-addon">$2: </div>
+			{!! Form::text('twoD', $details->twoD, array('class'=>'form-control', 'placeholder'=>'$2')) !!}
+		</div>
+	</div>
+	<div class="form-group">	
+		<div class="input-group">
+			<div class="input-group-addon">$5: </div>
+			{!! Form::text('fiveD', $details->fiveD, array('class'=>'form-control', 'placeholder'=>'$5')) !!}
+		</div>
+	</div>
+	<div class="form-group">	
+		<div class="input-group">
+			<div class="input-group-addon">$10: </div>
+			{!! Form::text('tenD', $details->tenD, array('class'=>'form-control', 'placeholder'=>'$10')) !!}
+		</div>
+	</div>
+	<div class="form-group">	
+		<div class="input-group">
+			<div class="input-group-addon">$20: </div>
+			{!! Form::text('twentyD', $details->twentyD, array('class'=>'form-control', 'placeholder'=>'$20')) !!}
+		</div>
+	</div>
+	<div class="form-group">	
+		<div class="input-group">
+			<div class="input-group-addon">$50: </div>
+			{!! Form::text('fiftyD', $details->fiftyD, array('class'=>'form-control', 'placeholder'=>'$50')) !!}
+		</div>		
+	</div>
+	<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-addon">$100: </div>
+			{!! Form::text('hundredD', $details->hundredD, array('class'=>'form-control', 'placeholder'=>'$100')) !!}
+		</div>	
+	</div>
+	</div>
 	
-	<span class="trans-label">$2: </span>
-	{!! Form::text('twoD', $details->twoD, array('class'=>'', 'placeholder'=>'$2')) !!}
 	
-	<span class="trans-label">$5: </span>
-	{!! Form::text('fiveD', $details->fiveD, array('class'=>'', 'placeholder'=>'$5')) !!}
-	
-	<span class="trans-label">$10: </span>
-	{!! Form::text('tenD', $details->tenD, array('class'=>'', 'placeholder'=>'$10')) !!}
-	
-	<span class="trans-label">$20: </span>
-	{!! Form::text('twentyD', $details->twentyD, array('class'=>'', 'placeholder'=>'$20')) !!}
-	
-	<span class="trans-label">$50: </span>
-	{!! Form::text('fiftyD', $details->fiftyD, array('class'=>'', 'placeholder'=>'$50')) !!}
-	
-	<span class="trans-label">$100: </span>
-	{!! Form::text('hundredD', $details->hundredD, array('class'=>'', 'placeholder'=>'$100')) !!}
-	
+  </div><!-- /.col-lg-6 -->
+
+<div class="row">
+  <div class="col-lg-12">
 	<button class="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{$submit_text}}</button>
-{!! Form::close() !!}
+	{!! Form::close() !!}
+  </div>
+</div>

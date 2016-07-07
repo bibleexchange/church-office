@@ -1,4 +1,3 @@
- 
 	<!-- Box (with bar chart) -->
 	<div class="box box-danger" id="loading-example">
 		<div class="box-header">

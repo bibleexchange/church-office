@@ -114,26 +114,18 @@
 <div class="print-hide">
 
 		Deposit Total: $&nbsp;	
-{!! Form::open([
+	{!! Form::open([
 	'url'=>'/accounting/transactions/'.$transaction->id,
 	'method'=>'patch',
 	'style'=>'display:inline-block;'
 	]) !!}
 		{!! Form::hidden('transaction_id', $transaction->id) !!}
-		{!! Form::text('amount', $transaction->amount, array('style'=>'display:inline;', 'placeholder'=>'Amount')) !!}</td>
+		{!! Form::text('amount', $transaction->amount, array('style'=>'display:inline;', 'placeholder'=>'Amount')) !!}
 		<button class="btn success" type="submit" value="NEW Gift"><span class="glyphicon glyphicon-ok"></span></button>
 	{!! Form::close() !!}
 		
 		{!!$transaction->amountValidate()!!}
-		
-</div>
-
-<style>
-
-.details-form td{display:block;}
-</style>
 <hr>
-<div class="print-hide">
 
 @include('accounting/transactions/form',["url"=>"/accounting/transactions/".$transaction->id,"method"=>"patch","submit_text"=>"Update Transaction"])
 
@@ -142,27 +134,22 @@
 @include('accounting/transactions/form-details',["url"=>"/accounting/transactions/".$transaction->id."/details","method"=>"post","submit_text"=>"Update Details"])
 
 <hr>
-
-<div class="row">
-	<div class="col-sm-12 transaction-options">
-		<button class="delete-button delete" onclick="confirmDelete({!!$transaction->id!!})"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>  DELETE
-		</button>
-
-		<div id="delete-form-{!!$transaction->id!!}" class="hidden">
-		
-			{!! Form::open(['url'=>'/accounting/transactions/'.$transaction->id,'method'=>'delete','class'=>'delete']) !!}
-				{!! Form::hidden('transaction_id', $transaction->id) !!}
-				<button class="expensed delete-button">
-				<span class="glyphicon glyphicon-remove"></span> Are you sure? YES</button>
-			{!! Form::close() !!}
-			
-			<button class="cancel-button" onclick="confirmDelete({!!$transaction->id!!})"><span class="glyphicon glyphicon-left-arrow" ></span>  Cancel
-			</button>
+<hr>
+<br>
+<br><br>
+<br>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			@include('accounting/parts/confirm-delete')
 		</div>
 	</div>
-
 </div>
-
+<br>
+<br>
+<br>
+<br>
+<br>
 </div>
 
 @stop

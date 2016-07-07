@@ -18,7 +18,7 @@ class Report {
 	public function initialize()
 	  {
 		
-		$userContributions = new ReportTemplate('User Contributions','/accounting/reports/user-contributions');
+		$userContributions = new ReportTemplate('Entity Transactions','/accounting/reports/entity-transactions');
 		$cashRegister = new ReportTemplate('Cash Register','/accounting/reports/daily-balances/820');
 		$missionsRegister = new ReportTemplate('Missions Register','/accounting/reports/daily-balances/818');
 		$generalRegister = new ReportTemplate('General Register','/accounting/reports/daily-balances/816');
