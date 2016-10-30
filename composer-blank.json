@@ -1,0 +1,10 @@
+{
+    "name": "root/church-office",
+    "authors": [
+        {
+            "name": "Stephen Reynolds",
+            "email": "sgrjr@deliverance.me"
+        }
+    ],
+    "require": {}
+}

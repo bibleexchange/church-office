@@ -10,36 +10,36 @@
 
 			<h3 class="box-title">{{$title}}</h3>
 		</div><!-- /.box-header -->
-			
+
 		<div class="box-footer">
-		
+
 			<div class="row">
 				<center>{!!$transactions->render() !!}</center>
 			</div>
-			
-			
+
+
 <div id="accordion" role="tablist" aria-multiselectable="true">
-			
+
 <?php $date = null; $hr = ""; ?>
 
 	@foreach($transactions AS $transaction)
-		
-		<?php 
+
+		<?php
 		if($date == $transaction->date){
 			$hr = "";
 		}else{
 			$date = $transaction->date;
 			$hr = "<div class='date-break'>" . $transaction->present()->date ."</div>";
 		}
-		
+
 		 ?>
-	
+
 	{!! $hr !!}
-	
+
 	  <div class="panel panel-success">
 		<div class="panel-heading" role="tab" id="heading{{$transaction->id}}">
 		  <h4 class="panel-title">
-			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$transaction->id}}" aria-expanded="false" aria-controls="collapse{{$transaction->id}}">  
+			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$transaction->id}}" aria-expanded="false" aria-controls="collapse{{$transaction->id}}">
 					<div class="expensed button"><span class="glyphicon glyphicon-edit"></span></div>
 					<div class="expensed spacer"></div>
 					<div class="expensed payer">$ {{$transaction->from->name}}</div>
@@ -55,7 +55,7 @@
 
 		<!-- -->
 		 <div id="edit-{{$transaction->id}}" class="edit-transaction">
-		 
+
 			 <div class="row">
 				<div class="col-sm-6">
 					@include('accounting/parts/confirm-delete')
@@ -64,17 +64,15 @@
 					<a class="btn btn-primary" style="width:100%; line-height:40px;" href="/accounting/transactions/{!!$transaction->id!!}">DETAILS</a>
 				</div>
 			</div>
-			
 
-	
-@include('accounting/transactions/form',["url"=>"/accounting/transactions/".$transaction->id,"method"=>"patch","submit_text"=>"Update"])
-			
+@include('accounting.transactions.form',["url"=>"/accounting/transactions/".$transaction->id,"method"=>"patch","submit_text"=>"Update"])
+
 		</div>
 		<!-- -->
 		</div>
 	  </div>
-	
+
 	@endforeach
 </div><!-- /.accordion -->
 		</div><!-- /.box-footer -->
-	</div><!-- /.box -->    
+	</div><!-- /.box -->

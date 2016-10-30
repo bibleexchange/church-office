@@ -14,18 +14,18 @@
 @stop
 
 @section('body')
-	
+
 	<div class="row connectedSortable">
-	
-		<section class="col-md-12 connectedSortable">     
-@include('accounting\transactions\create',['title'=>'New Transaction',$entities,$categories,'transaction'=>$mostRecentTransaction])
+
+		<section class="col-md-12 connectedSortable">
+@include('accounting.transactions.create',['title'=>'New Transaction',$entities,$categories,'transaction'=>$mostRecentTransaction])
 		</section>
-	
+
 		 @foreach($cards AS $card)
 		 <section class="col-md-6">
 			@include('card',[$card])
 		 </section>
 		@endforeach
 	</div>
-	
+
 @stop

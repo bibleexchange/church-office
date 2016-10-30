@@ -18,8 +18,8 @@
 
 <div class="row">
 
-	<section class="col-md-12 connectedSortable">     
-		@include('accounting\transactions\register', [$entries,'title'=>'Register: $ ' . $register_balance])
+	<section class="col-md-12 connectedSortable">
+		@include('accounting.transactions.register', [$entries,'title'=>'Register: $ ' . $register_balance])
 	</section>
 
 </div>
