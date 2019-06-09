@@ -32,7 +32,7 @@
 		<td class='style18' >Deposit Date:</td>
 		<td class='style15' colspan='2'>{{ $transaction->date }}</td>
 		<td class='style18' colspan='5'>Account Number:</td>
-		
+
 		<td class='style15' colspan='3'>{{ $transaction->to->getMeta('account_number')}}</td>
 		<td class='style18' colspan='5'>Nickname: </td>
 		<td class='style15' colspan='2'>{{ $transaction->to->getMeta('title') }}</td>
@@ -58,7 +58,7 @@
 		<td class='style18' >Sum of Checks: </td>
 		<td class='style15' colspan='2'>$&nbsp;{{number_format($details->checks_sum,2)}}</td>
 		<td class='style18' colspan='3'>Nickels: </td>
-		<td class='style15' >{{$details->nickel}}</td>  
+		<td class='style15' >{{$details->nickel}}</td>
 		<td style='height: 21' class='style15' ><!-- x&apos;s -->$ {{$details->value('nickel') }}</td>
 		<td class='style18' >$2: </td>
 		<td class='style15' >{{$details->twoD}}</td>
@@ -113,7 +113,7 @@
 
 <div class="print-hide">
 
-		Deposit Total: $&nbsp;	
+		Deposit Total: $&nbsp;
 	{!! Form::open([
 	'url'=>'/accounting/transactions/'.$transaction->id,
 	'method'=>'patch',
@@ -123,15 +123,15 @@
 		{!! Form::text('amount', $transaction->amount, array('style'=>'display:inline;', 'placeholder'=>'Amount')) !!}
 		<button class="btn success" type="submit" value="NEW Gift"><span class="glyphicon glyphicon-ok"></span></button>
 	{!! Form::close() !!}
-		
+
 		{!!$transaction->amountValidate()!!}
 <hr>
 
-@include('accounting/transactions/form',["url"=>"/accounting/transactions/".$transaction->id,"method"=>"patch","submit_text"=>"Update Transaction"])
+@include('accounting.transactions.form',["url"=>"/accounting/transactions/".$transaction->id,"method"=>"patch","submit_text"=>"Update Transaction"])
 
 <hr>
 
-@include('accounting/transactions/form-details',["url"=>"/accounting/transactions/".$transaction->id."/details","method"=>"post","submit_text"=>"Update Details"])
+@include('accounting.transactions.form-details',["url"=>"/accounting/transactions/".$transaction->id."/details","method"=>"post","submit_text"=>"Update Details"])
 
 <hr>
 <hr>
@@ -141,7 +141,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12">
-			@include('accounting/parts/confirm-delete')
+			@include('accounting.parts.confirm-delete')
 		</div>
 	</div>
 </div>

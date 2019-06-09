@@ -10,9 +10,9 @@
 
 		<h3 class="box-title">{{$title}}</h3>
 	</div><!-- /.box-header -->
-	
+
 	<div class="box-footer">
-@include('accounting/transactions/form',["url"=>"/accounting/transactions","method"=>"post","submit_text"=>"Create"])
+@include('accounting.transactions.form',["url"=>"/accounting/transactions","method"=>"post","submit_text"=>"Create"])
 		</div><!-- /.row -->
 	</div><!-- /.box-footer -->
-</div><!-- /.box -->    
+</div><!-- /.box -->

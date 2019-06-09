@@ -18,12 +18,12 @@
 
 <div class="row">
 
-	<section class="col-md-12 connectedSortable">     
-		@include('accounting\transactions\categorized', [$items,$colors,$entity])
+	<section class="col-md-12 connectedSortable">
+		@include('accounting.transactions.categorized', [$items,$colors,$entity])
 	</section>
 
-	<section class="col-md-12 connectedSortable">     
-		@include('accounting\transactions\editable', [$transactions,$categories,$entities,'title'=>'Debits'])
+	<section class="col-md-12 connectedSortable">
+		@include('accounting.transactions.editable', [$transactions,$categories,$entities,'title'=>'Debits'])
 	</section>
 
 </div>
