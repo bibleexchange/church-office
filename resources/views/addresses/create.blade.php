@@ -3,13 +3,13 @@
 @section('content-header')
 
  <h1>
-	Create a New Contact
+	Create a New Address
 </h1>
 
 <ol class="breadcrumb">
    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="/person"><i class="fa fa-money"></i> Person</a></li>
-   <li class="active">Person</li>
+    <li><a href="/person"><i class="fa fa-money"></i> address</a></li>
+   <li class="active">Address</li>
 </ol>
 
 @stop
@@ -21,7 +21,7 @@
 	<li>{!! $e	!!}</li>
 	@endforeach
 </ul>
-{!! Form::open(['url' => '/people/create']) !!}
+{!! Form::open(['url' => '/address']) !!}
 
 @foreach($columns AS $c)
 
@@ -32,7 +32,7 @@
 
 @endforeach
 
-    {!! Form::submit('Create the Contact!', array('class' => 'btn btn-primary')) !!}
+    {!! Form::submit('Create the Address!', array('class' => 'btn btn-primary')) !!}
 
 {!! Form::close() !!}
 @stop

@@ -128,7 +128,7 @@ class Gift extends \Eloquent {
 		$sum = 0;
 
 		foreach($gifts AS $gift){
-			$sum = $sum + $gift->totalAmount;
+			$sum = $sum + $gift->amount;
 		}
 		 
 		return $sum;;

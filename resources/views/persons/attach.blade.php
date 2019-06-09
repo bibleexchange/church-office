@@ -1,8 +1,20 @@
-@extends('layouts.office')
+@extends('app')
 
-@section('office-content')
+@section('content-header')
 
-<h1>Attach {{ $resourceName}}</h1>
+ <h1>
+	Attach {{ $resourceName}}
+</h1>
+
+<ol class="breadcrumb">
+   <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li><a href="/person"><i class="fa fa-money"></i> Person</a></li>
+   <li class="active">Person</li>
+</ol>
+
+@stop
+
+@section('body')
 
 <div class="row">
 	<div class="col-sm-16">

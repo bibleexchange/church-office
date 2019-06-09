@@ -14,7 +14,10 @@ class Address extends \Eloquent{
 	  {
 		return $this->belongsToMany('App\Contact');
 	  }
-	
+		public function columns()
+	{
+		return $this->fillable;
+	}
 	public function selectList()
 	{
 		

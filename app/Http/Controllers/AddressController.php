@@ -1,15 +1,17 @@
-<?php namespace Deliverance\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
-use Deliverance\Entities\Address;
-
-use Deliverance\Http\Requests;
-use Deliverance\Http\Controllers\Controller;
-
+use App\Http\Requests;
 use Illuminate\Http\Request;
 use Input, Flash, Redirect;
+use App\Address;
 
 class AddressController extends Controller {
-
+	
+	function __construct(){
+		$this->middleware('auth');
+		$this->model = new Address;			
+	}
+	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -28,7 +30,8 @@ class AddressController extends Controller {
 	public function create()
 	{
 		return view('addresses.create')
-		->with('pageTitle','Create New Address');
+		->with('pageTitle','Create New Address')
+		->with('columns',$this->model->columns());
 	}
 
 	/**

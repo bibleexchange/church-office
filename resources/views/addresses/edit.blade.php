@@ -46,6 +46,6 @@
 
 {!! Form::close() !!}
 <br><br>
-<a href="/address/create">Create a New Address</a>
+<a href="/office/address/create">Create a New Address</a>
 
 @stop

@@ -25,6 +25,7 @@ class Entity extends Model {
 		$meta = Meta::where('name',$name)->first();
 	
 		if($this->metas->count() !== 0){
+			//dd($this->metas->where('type',$meta->id)->last());
 			return $this->metas->where('type',$meta->id)->last()->value;
 		}else{
 			return false;

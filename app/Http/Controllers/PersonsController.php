@@ -106,7 +106,7 @@ class PersonsController extends Controller {
 			);
 
 		$contact->save();
-		
+
 		return Redirect::back();
 	
 	}
@@ -129,7 +129,7 @@ class PersonsController extends Controller {
      */
     public function show($id)
     {
-    	$range = ['2012-01-01','2016-01-01'];
+    	$range = ['2012-01-01','2019-01-01'];
     	
     	if (isset($_GET['range_start']) && isset($_GET['range_end'])){
     		$range = [$_GET['range_start'],$_GET['range_end']];
@@ -140,9 +140,9 @@ class PersonsController extends Controller {
         $contact = Contact::find($id);
 		
         $gifts = $contact->gifts($range)->get();
-        
+//dd($gifts[0]);
         $sumOfGifts = Gift::sumOfGifts($gifts);
-        
+		
         return view('persons.show')
             ->with('contact', $contact)
 			->with('columns',$this->model->columns())
@@ -164,7 +164,7 @@ class PersonsController extends Controller {
         $contact = Contact::find($id);
 		$address = new Address;
 		 
-        return view('contacts.edit')
+        return view('persons.edit')
             ->with('contact', $contact)
 			->with('addresses', $address->selectList())
 			->with('columns',$this->model->columns())

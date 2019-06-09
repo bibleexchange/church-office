@@ -24,8 +24,11 @@ Route::get('/', ['uses'=>'OfficeController@getIndex','as'=>'home']);
 Route::get('/accounting', ['uses'=>'AccountingController@getIndex','as'=>'accounting']);
 
 Route::get('/people', 'PersonsController@index');
+Route::get('/people/create', 'PersonsController@create');
+Route::post('/people/create', 'PersonsController@store');
 Route::get('/people/{id}', 'PersonsController@show');
-Route::get('/people/{id}', 'PersonsController@show');
+Route::get('/people/{id}/edit', 'PersonsController@edit');
+
 Route::post('/people/date-range', ['uses'=>'PersonsController@range','as'=>'people.date-range']);
 Route::get('/people/filter/{filter}', 'PersonsController@index');
 Route::get('/people/{id}/attach/{resource}', 'PersonsController@attach');
@@ -37,7 +40,7 @@ Route::post('/accounting/gifts/{giftId}', ['uses'=>'GiftsController@update','as'
 
 Route::post('/accounting/gifts', 'GiftsController@store');
 
-Route::resource('/office/address', 'AddressController');
+Route::resource('/address', 'AddressController');
 Route::resource('/accounting/deposits', 'DepositsController');
 Route::resource('/accounting/offerings', 'OfferingsController');
 

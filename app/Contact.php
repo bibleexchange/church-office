@@ -45,10 +45,13 @@ class Contact extends \Eloquent {
 	 public function gifts(array $range = null)
     {
     	if ($range === null){
-    		return $this->hasMany('App\Gift');
+    		//return $this->hasMany('App\Gift');
+			return $this->hasMany('App\Transaction','from_entity_id');
     	}else{
-    		return $this->hasMany('App\Gift')->whereBetween('created_at',$range);
+    		//return $this->hasMany('App\Gift')->whereBetween('created_at',$range);
+			return $this->hasMany('App\Transaction','from_entity_id')->whereBetween('created_at',$range);
     	}
+		
     }
          
 	public function audios()
